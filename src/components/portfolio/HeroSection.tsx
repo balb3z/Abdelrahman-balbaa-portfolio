@@ -45,7 +45,7 @@ const HeroSection = () => {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.2 }}
           >
-            <div className="w-64 h-64 sm:w-80 sm:h-80 rounded-full overflow-hidden border-4 border-accent shadow-2xl">
+            <div className="w-64 h-64 sm:w-80 sm:h-80 rounded-full overflow-hidden">
               <img src={profilePhoto} alt="Abdelrahman Balbaa" className="w-full h-full object-cover" />
             </div>
           </motion.div>
