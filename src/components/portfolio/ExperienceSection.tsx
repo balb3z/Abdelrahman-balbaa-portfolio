@@ -6,7 +6,7 @@ const experiences = [
     role: "Data Science Trainee",
     company: "Digital Egypt Pioneers Initiative (DEPI)",
     period: "2026 – Present",
-    logo: "/depi.png",
+    logo: "/Abdelrahman-balbaa-portfolio/depi.png",
     points: [
       "Enrolled in an intensive data science program covering ML, deep learning, and big data.",
       "Working on real-world projects with industry mentors.",
@@ -17,7 +17,7 @@ const experiences = [
     role: "Summer Intern",
     company: "WE Telecom",
     period: "Summer 2025",
-    logo: "/we.png",
+    logo: "/Abdelrahman-balbaa-portfolio/we.png",
     points: [
       "Gained hands-on experience in data analysis and telecom operations.",
       "Worked with network performance data to identify optimization opportunities.",
@@ -28,7 +28,7 @@ const experiences = [
     role: "Summer Intern",
     company: "Commercial International Bank (CIB)",
     period: "Summer 2025",
-    logo: "/cib.png",
+    logo: "/Abdelrahman-balbaa-portfolio/cib.png",
     points: [
       "Explored banking operations and financial data processes.",
       "Assisted in data entry, analysis, and reporting tasks.",
