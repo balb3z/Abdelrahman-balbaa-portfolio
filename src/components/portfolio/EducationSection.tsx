@@ -36,7 +36,7 @@ const EducationSection = () => {
 
               {/* BIG University Image */}
               <img
-                src="/alexu.png"
+                src="/Abdelrahman-balbaa-portfolio/alexu.png"
                 alt="Alexandria University"
                 className="w-28 h-28 rounded-2xl object-cover border border-border shadow-md"
               />
