@@ -1,14 +1,7 @@
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import { cn } from "@/lib/utils";
-import { Mail, Phone, Linkedin, MapPin } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-
 const contactInfo = [
-  { icon: Mail, label: "abdelrahmanbalbaa@gmail.com", href: "mailto:abdelrahmanbalbaa@gmail.com" },
-  { icon: Phone, label: "+20 103 337 8927", href: "tel:+201033378927" },
-  { icon: Linkedin, label: "linkedin.com/in/abdelrahman-balbaa", href: "https://linkedin.com/in/abdelrahman-balbaa" },
+  { icon: Mail, label: "balbaa09@gmail.com", href: "mailto:balbaa09@gmail.com" },
+  { icon: Phone, label: "+20 111 728 0068", href: "tel:+201117280068" },
+  { icon: Linkedin, label: "linkedin.com/in/balb3z", href: "https://www.linkedin.com/in/balb3z/" },
   { icon: MapPin, label: "Alexandria, Egypt", href: null },
 ];
 
@@ -21,7 +14,7 @@ const ContactSection = () => {
     const name = (form.elements.namedItem("name") as HTMLInputElement).value;
     const email = (form.elements.namedItem("email") as HTMLInputElement).value;
     const message = (form.elements.namedItem("message") as HTMLTextAreaElement).value;
-    window.location.href = `mailto:abdelrahmanbalbaa@gmail.com?subject=Contact from ${name}&body=${encodeURIComponent(`From: ${name} (${email})\n\n${message}`)}`;
+    window.location.href = `mailto:balbaa09@gmail.com?subject=Contact from ${name}&body=${encodeURIComponent(`From: ${name} (${email})\n\n${message}`)}`;
   };
 
   return (
