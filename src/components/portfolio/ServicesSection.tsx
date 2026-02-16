@@ -5,9 +5,9 @@ import { BarChart3, Brain, LineChart, Code, Lightbulb } from "lucide-react";
 const services = [
   { title: "Data Analysis", desc: "Exploring and interpreting complex datasets to uncover trends and actionable insights.", icon: BarChart3 },
   { title: "ML Models", desc: "Building and deploying machine learning models for prediction, classification, and clustering.", icon: Brain },
-  { title: "Data Visualization", desc: "Creating interactive dashboards and compelling visual stories from raw data.", icon: LineChart },
-  { title: "Python Automation", desc: "Automating repetitive tasks and workflows with efficient Python scripts.", icon: Code },
-  { title: "AI Consulting", desc: "Advising on AI strategy, feasibility analysis, and implementation approaches.", icon: Lightbulb },
+  { title: "Data Visualization", desc: "Creating interactive dashboards and compelling visual stories from raw data.", icon: LineChart }
+  
+  
 ];
 
 const ServicesSection = () => {
