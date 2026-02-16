@@ -8,11 +8,14 @@ const HeroSection = () => {
   const scrollTo = (id: string) =>
     document.querySelector(id)?.scrollIntoView({ behavior: "smooth" });
 
-  return (
+return (
     <section className="min-h-screen flex items-center pt-20 pb-12">
       <div className="container mx-auto px-6">
 
-        {/* Dark mode toggle placeholder */}
+        {/* ✅ Dark mode button top right */}
+        <div className="flex justify-end mb-6">
+          <ThemeToggle />
+        </div>
 
         <div className="flex flex-col-reverse md:flex-row items-center gap-12 md:gap-16">
 
@@ -51,7 +54,7 @@ const HeroSection = () => {
               </Button>
 
               <Button asChild variant="secondary" size="lg">
-                <a href="/cv.pdf" download className="flex items-center gap-2">
+                <a href="/Abdelrahman-balbaa-portfolio/cv.pdf" download className="flex items-center gap-2">
                   <Download size={18} />
                   Download CV
                 </a>
@@ -60,14 +63,14 @@ const HeroSection = () => {
 
             {/* Social */}
             <div className="flex gap-4 justify-center md:justify-start">
-              <a href="mailto:abdelrahmanbalbaa@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">
+              <a href="mailto:balbaa090@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">
                 <Mail size={20} />
               </a>
-              <a href="tel:+201033378927" className="text-muted-foreground hover:text-primary transition-colors">
+              <a href="tel:+201117280068" className="text-muted-foreground hover:text-primary transition-colors">
                 <Phone size={20} />
               </a>
               <a
-                href="https://linkedin.com/in/abdelrahman-balbaa"
+                href="https://www.linkedin.com/in/balb3z/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-primary transition-colors"
