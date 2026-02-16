@@ -6,7 +6,7 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { cn } from "@/lib/utils";
 
 const contactInfo = [
-  { icon: Mail, label: "balbaa09@gmail.com", href: "mailto:balbaa09@gmail.com" },
+  { icon: Mail, label: "balbaa090@gmail.com", href: "mailto:balbaa09@gmail.com" },
   { icon: Phone, label: "+20 111 728 0068", href: "tel:+201117280068" },
   { icon: Linkedin, label: "linkedin.com/in/balb3z", href: "https://www.linkedin.com/in/balb3z/" },
   { icon: MapPin, label: "Alexandria, Egypt", href: null },
