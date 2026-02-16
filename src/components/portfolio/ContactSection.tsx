@@ -1,3 +1,10 @@
+import { Mail, Phone, Linkedin, MapPin } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { cn } from "@/lib/utils";
+
 const contactInfo = [
   { icon: Mail, label: "balbaa09@gmail.com", href: "mailto:balbaa09@gmail.com" },
   { icon: Phone, label: "+20 111 728 0068", href: "tel:+201117280068" },
