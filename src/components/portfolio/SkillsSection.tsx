@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 const skillGroups = [
   { title: "Languages", skills: ["Python", "C++", "SQL", "Java", "HTML/CSS"] },
   { title: "Tools & Libraries", skills: ["Pandas", "NumPy", "Scikit-learn", "TensorFlow", "Matplotlib", "Seaborn", "Power BI", "Excel", "Git"] },
-  { title: "Concepts", skills: ["Machine Learning", "Deep Learning", "Data Analysis", "Data Visualization", "Statistical Modeling", "NLP", "Computer Vision"] },
+  { title: "Concepts", skills: ["Machine Learning", "Deep Learning", "Data Analysis", "Data Visualization", "Statistical Modeling" ] },
   { title: "Soft Skills", skills: ["Leadership", "Communication", "Teamwork", "Problem Solving", "Time Management", "Presentation"] },
 ];
 
