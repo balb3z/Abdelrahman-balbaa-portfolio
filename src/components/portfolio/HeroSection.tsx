@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Mail, Phone, Linkedin, ArrowDown, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "@/components/ThemeToggle";
+// import { ThemeToggle } from "@/components/ThemeToggle";
 import profilePhoto from "@/assets/profile-photo.png";
 
 const HeroSection = () => {
@@ -12,10 +12,7 @@ const HeroSection = () => {
     <section className="min-h-screen flex items-center pt-20 pb-12">
       <div className="container mx-auto px-6">
 
-        {/* ✅ Dark mode button top right */}
-        <div className="flex justify-end mb-6">
-          <ThemeToggle />
-        </div>
+        {/* Dark mode toggle placeholder */}
 
         <div className="flex flex-col-reverse md:flex-row items-center gap-12 md:gap-16">
 
