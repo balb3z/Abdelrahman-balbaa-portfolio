@@ -2,6 +2,17 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { cn } from "@/lib/utils";
 
 const experiences = [
+{
+    role: "Technical Instructor (DECI Program)",
+    company: "eYouth",
+    period: "2026 – Present",
+    logo: "/Abdelrahman-balbaa-portfolio/depi.png",
+    points: [
+      "Deliver hands-on sessions in Python programming and problem-solving as a Technical Instructor at DECI.",
+      "Design structured learning activities and assessments to strengthen students’ analytical and programming skills",
+    ],
+  }
+  
   {
     role: "Data Science Trainee",
     company: "Digital Egypt Pioneers Initiative (DEPI)",
