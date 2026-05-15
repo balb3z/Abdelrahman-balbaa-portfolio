@@ -11,7 +11,7 @@ const experiences = [
       "Deliver hands-on sessions in Python programming and problem-solving as a Technical Instructor at DECI.",
       "Design structured learning activities and assessments to strengthen students’ analytical and programming skills",
     ],
-  }
+  },
   
   {
     role: "Data Science Trainee",
