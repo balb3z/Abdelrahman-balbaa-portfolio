@@ -1,111 +1,88 @@
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
-import { ExternalLink } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
+import { Github } from "lucide-react";
+import { profile, projects, type Project } from "@/data/portfolio";
+import { ProjectCard, ProjectRow } from "./ProjectCard";
+import ProjectModal from "./ProjectModal";
+import { Reveal, SectionHeading } from "./shared";
 
-const projects = [
-  {
-    title: "Loan Prediction System",
-    desc: "ML model to predict loan approval status based on applicant data using classification algorithms.",
-    tags: ["Python", "Scikit-learn", "Pandas", "ML"],
-    link: "https://github.com/balb3z/Loan-Approval-Prediction",
-  },
-  {
-    title: "Customer Segmentation",
-    desc: "Unsupervised learning project using K-Means clustering to segment customers for targeted marketing.",
-    tags: ["Python", "K-Means", "Data Analysis"],
-    link: "https://github.com/balb3z/Customer-Segmentation",
-  },
-  {
-    title: "Student Performance Prediction",
-    desc: "Predictive model analyzing factors affecting student academic performance using regression techniques.",
-    tags: ["Python", "Regression", "EDA"],
-    link: "https://github.com/balb3z/Student-score-prediction",
-  },
-  {
-    title: "University Management System",
-    desc: "Full OOP-based system for managing students, courses, and grades with a structured database design.",
-    tags: ["C++", "OOP", "Data Structures"],
-    link: "",
-  },
-  {
-    title: "Sparse Table Implementation",
-    desc: "Efficient data structure implementation for range minimum queries with O(1) query time.",
-    tags: ["C++", "Algorithms", "Competitive Programming"],
-    link: "",
-  },
-  {
-    title: "Maze Solver",
-    desc: "Pathfinding algorithm visualizer using BFS/DFS to solve mazes and display optimal routes.",
-    tags: ["Python", "Algorithms", "Visualization"],
-    link: "",
-  },
-];
+const PARAM = "project";
 
+/** Keeps the open project in the URL (?project=slug) so a project can be shared directly. */
+const setUrlProject = (slug: string | null) => {
+  const url = new URL(window.location.href);
+  if (slug) url.searchParams.set(PARAM, slug);
+  else url.searchParams.delete(PARAM);
+  window.history.replaceState(null, "", url);
+};
 
 const ProjectsSection = () => {
-  const { ref, isVisible } = useScrollAnimation();
+  const [open, setOpen] = useState<Project | null>(null);
+  const featured = projects.filter((p) => p.featured);
+  const more = projects.filter((p) => !p.featured);
+
+  useEffect(() => {
+    const slug = new URLSearchParams(window.location.search).get(PARAM);
+    const match = slug && projects.find((p) => p.slug === slug);
+    if (match) {
+      setOpen(match);
+      document.getElementById("projects")?.scrollIntoView();
+    }
+  }, []);
+
+  const openProject = useCallback((p: Project) => {
+    setOpen(p);
+    setUrlProject(p.slug);
+  }, []);
+  const close = useCallback(() => {
+    setOpen(null);
+    setUrlProject(null);
+  }, []);
 
   return (
-    <section id="projects" className="py-20 bg-accent/30">
-      <div className="container mx-auto px-6">
-        <h2 className="text-3xl font-bold text-foreground text-center mb-2">
-          Projects
-        </h2>
-        <div className="w-12 h-1 bg-primary rounded mx-auto mb-12" />
+    <section id="projects" className="section border-y border-border/60 bg-card/30">
+      <div className="container-x">
+        <SectionHeading
+          eyebrow="04 · Projects"
+          title="Selected work"
+          description="Data platforms, analytics systems, and ML models. Click any project for details, screenshots, and links."
+        />
 
-        <div
-          ref={ref}
-          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto"
-        >
-          {projects.map((p, i) => (
-            <a
-              key={p.title}
-              href={p.link || "#"}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={p.link ? "cursor-pointer" : "cursor-default"}
-            >
-              <div
-                className={cn(
-                  "group bg-card border border-border rounded-xl p-6 transition-all duration-500 hover:shadow-lg hover:-translate-y-1",
-                  isVisible
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-10"
-                )}
-                style={{
-                  transitionDelay: isVisible ? `${i * 100}ms` : "0ms",
-                }}
-              >
-                <div className="flex items-start justify-between mb-3">
-                  <h3 className="text-lg font-bold text-foreground">
-                    {p.title}
-                  </h3>
-
-                  {p.link && (
-                    <ExternalLink
-                      size={16}
-                      className="text-muted-foreground group-hover:text-primary transition-colors mt-1"
-                    />
-                  )}
-                </div>
-
-                <p className="text-sm text-muted-foreground mb-4 leading-relaxed">
-                  {p.desc}
-                </p>
-
-                <div className="flex flex-wrap gap-1.5">
-                  {p.tags.map((t) => (
-                    <Badge key={t} variant="outline" className="text-xs">
-                      {t}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
-            </a>
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {featured.map((p, i) => (
+            <Reveal key={p.slug} delay={0.06 * (i % 3)} className={i === 0 ? "md:col-span-2" : undefined}>
+              <ProjectCard project={p} onOpen={openProject} className="h-full" wide={i === 0} />
+            </Reveal>
           ))}
         </div>
+
+        {more.length > 0 && (
+          <div className="mt-16">
+            <Reveal className="mb-6 flex flex-wrap items-end justify-between gap-4">
+              <div>
+                <h3 className="text-xl font-semibold text-foreground">More on GitHub</h3>
+                <p className="mt-1 text-sm text-muted-foreground">Smaller builds and ML practice projects.</p>
+              </div>
+              <a
+                href={profile.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-primary/50 hover:text-primary"
+              >
+                <Github size={16} /> All repositories
+              </a>
+            </Reveal>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              {more.map((p, i) => (
+                <Reveal key={p.slug} delay={0.04 * i} className="min-w-0">
+                  <ProjectRow project={p} onOpen={openProject} />
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
+
+      <ProjectModal project={open} onClose={close} />
     </section>
   );
 };

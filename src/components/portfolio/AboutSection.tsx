@@ -1,48 +1,72 @@
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import { cn } from "@/lib/utils";
-import profilePhoto from "@/assets/profile-photo.png";
+import { Database, BrainCircuit, LayoutDashboard } from "lucide-react";
+import { certifications, experiences, profile, projects } from "@/data/portfolio";
+import { Reveal, SectionHeading } from "./shared";
 
-const AboutSection = () => {
-  const { ref, isVisible } = useScrollAnimation();
+const focus = [
+  {
+    icon: Database,
+    title: "Data Engineering",
+    text: "ETL pipelines, medallion (Bronze/Silver/Gold) architectures, Spark, Databricks, and Azure.",
+  },
+  {
+    icon: BrainCircuit,
+    title: "Machine Learning",
+    text: "Deep learning, feature engineering, and classical ML, from prototype to evaluation.",
+  },
+  {
+    icon: LayoutDashboard,
+    title: "Analytics & Products",
+    text: "Dashboards in Power BI and full-stack apps that put data in front of decision-makers.",
+  },
+];
 
-  return (
-    <section id="about" className="py-20">
-      <div className="container mx-auto px-6">
-        <div
-          ref={ref}
-          className={cn(
-            "flex flex-col md:flex-row items-center justify-center gap-12 transition-all duration-700 max-w-4xl mx-auto text-center md:text-left",
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          )}
-        >
-          {/* Photo */}
-          <div className="relative w-56 flex-shrink-0 mx-auto">
-            <img
-              src={profilePhoto}
-              alt="Abdelrahman Balbaa"
-              className="w-full h-auto object-contain"
-            />
-            <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-background to-transparent" />
-          </div>
+// Derived from the data file so the numbers stay correct as content is added.
+const stats = [
+  { value: String(experiences.length), label: "Roles & internships" },
+  { value: String(projects.length), label: "Projects" },
+  { value: String(certifications.length), label: "Certifications" },
+];
 
-          {/* Text */}
-          <div className="max-w-2xl">
-            <h2 className="text-3xl font-bold text-foreground mb-2">
-              About Me
-            </h2>
+const AboutSection = () => (
+  <section id="about" className="section border-t border-border/60">
+    <div className="container-x">
+      <SectionHeading eyebrow="01 · About" title="Turning raw data into systems people use." />
 
-            <div className="w-12 h-1 bg-primary rounded mb-6 mx-auto md:mx-0" />
-
-            <p className="text-muted-foreground leading-relaxed">
-              I'm a dedicated AI and Data Science student at Alexandria University with a strong foundation in machine learning, data analysis, and software development.
-              I've completed internships at WE Telecom and CIB, and I'm currently enrolled in the Digital Egypt Pioneers Initiative (DEPI) for Data Science.
-              I thrive on solving complex problems, leading teams, and creating impactful solutions that leverage the power of artificial intelligence.
+      <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr]">
+        <Reveal className="space-y-5 text-base leading-relaxed text-muted-foreground sm:text-lg">
+          {profile.about.map((p, i) => (
+            <p key={i} className={i === 0 ? "text-foreground/90" : undefined}>
+              {p}
             </p>
-          </div>
+          ))}
+
+          <dl className="grid grid-cols-3 gap-3 pt-4">
+            {stats.map((h) => (
+              <div key={h.label} className="surface p-4 sm:p-5">
+                <dt className="sr-only">{h.label}</dt>
+                <dd className="text-2xl font-semibold text-foreground sm:text-3xl">{h.value}</dd>
+                <dd className="mt-1 text-xs leading-snug text-muted-foreground sm:text-sm">{h.label}</dd>
+              </div>
+            ))}
+          </dl>
+        </Reveal>
+
+        <div className="space-y-3">
+          {focus.map((f, i) => (
+            <Reveal key={f.title} delay={0.08 * i} className="surface surface-hover flex gap-4 p-5">
+              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                <f.icon size={20} />
+              </div>
+              <div>
+                <h3 className="font-semibold text-foreground">{f.title}</h3>
+                <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{f.text}</p>
+              </div>
+            </Reveal>
+          ))}
         </div>
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 export default AboutSection;

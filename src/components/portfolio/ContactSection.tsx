@@ -1,68 +1,117 @@
-import { Mail, Phone, Linkedin, MapPin } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import { cn } from "@/lib/utils";
+import { useState } from "react";
+import { Check, Copy, Download, Github, Linkedin, Mail, MapPin, Phone, Send } from "lucide-react";
+import { profile } from "@/data/portfolio";
+import { Reveal, SectionHeading } from "./shared";
 
-const contactInfo = [
-  { icon: Mail, label: "balbaa090@gmail.com", href: "mailto:balbaa09@gmail.com" },
-  { icon: Phone, label: "+20 111 728 0068", href: "tel:+201117280068" },
-  { icon: Linkedin, label: "linkedin.com/in/balb3z", href: "https://www.linkedin.com/in/balb3z/" },
-  { icon: MapPin, label: "Alexandria, Egypt", href: null },
+const channels = [
+  { icon: Mail, label: "Email", value: profile.email, href: `mailto:${profile.email}`, external: false },
+  { icon: Linkedin, label: "LinkedIn", value: profile.linkedinLabel, href: profile.linkedin, external: true },
+  { icon: Github, label: "GitHub", value: profile.githubLabel, href: profile.github, external: true },
+  { icon: Phone, label: "Phone", value: profile.phone, href: profile.phoneHref, external: false },
 ];
 
-const ContactSection = () => {
-  const { ref, isVisible } = useScrollAnimation();
+const inputCls =
+  "w-full rounded-xl border border-input bg-background/60 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/70 transition-colors focus:border-primary/60 focus:outline-none focus:ring-2 focus:ring-primary/20";
 
+const ContactSection = () => {
+  const [copied, setCopied] = useState(false);
+
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(profile.email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
+    } catch {
+      window.location.href = `mailto:${profile.email}`;
+    }
+  };
+
+  // No backend on GitHub Pages: compose the message in the visitor's mail app.
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const form = e.currentTarget;
-    const name = (form.elements.namedItem("name") as HTMLInputElement).value;
-    const email = (form.elements.namedItem("email") as HTMLInputElement).value;
-    const message = (form.elements.namedItem("message") as HTMLTextAreaElement).value;
-    window.location.href = `mailto:balbaa09@gmail.com?subject=Contact from ${name}&body=${encodeURIComponent(`From: ${name} (${email})\n\n${message}`)}`;
+    const data = new FormData(e.currentTarget);
+    const name = String(data.get("name") ?? "");
+    const email = String(data.get("email") ?? "");
+    const message = String(data.get("message") ?? "");
+    const subject = encodeURIComponent(`Portfolio contact from ${name}`);
+    const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
+    window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`;
   };
 
   return (
-    <section id="contact" className="py-20 bg-accent/30">
-      <div className="container mx-auto px-6">
-        <div ref={ref} className={cn("transition-all duration-700", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10")}>
-          <h2 className="text-3xl font-bold text-foreground text-center mb-2">Get In Touch</h2>
-          <div className="w-12 h-1 bg-primary rounded mx-auto mb-12" />
+    <section id="contact" className="section border-t border-border/60">
+      <div className="container-x">
+        <SectionHeading
+          eyebrow="07 · Contact"
+          title="Let's work together"
+          description="Open to conversations about data engineering, AI, and analytics opportunities. The fastest way to reach me is email or LinkedIn."
+        />
 
-          <div className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
-            {/* Info */}
-            <div className="space-y-6">
-              <p className="text-muted-foreground leading-relaxed">
-                I'm always open to discussing new projects, opportunities, or collaborations. Feel free to reach out!
-              </p>
-              <div className="space-y-4">
-                {contactInfo.map((c) => (
-                  <div key={c.label} className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <c.icon className="text-primary" size={18} />
-                    </div>
-                    {c.href ? (
-                      <a href={c.href} target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                        {c.label}
-                      </a>
-                    ) : (
-                      <span className="text-sm text-muted-foreground">{c.label}</span>
-                    )}
-                  </div>
-                ))}
-              </div>
+        <div className="grid gap-6 lg:grid-cols-[1fr_1.1fr]">
+          <Reveal className="space-y-3">
+            {channels.map((c) => (
+              <a
+                key={c.label}
+                href={c.href}
+                {...(c.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                className="surface surface-hover group flex items-center gap-4 p-4"
+              >
+                <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
+                  <c.icon size={19} />
+                </span>
+                <span className="min-w-0">
+                  <span className="block text-xs text-muted-foreground">{c.label}</span>
+                  <span className="block truncate font-medium text-foreground">{c.value}</span>
+                </span>
+              </a>
+            ))}
+            <div className="flex flex-wrap items-center gap-3 pt-2">
+              <button
+                type="button"
+                onClick={copyEmail}
+                className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm text-muted-foreground transition-colors hover:border-primary/50 hover:text-primary"
+              >
+                {copied ? <Check size={15} /> : <Copy size={15} />}
+                <span aria-live="polite">{copied ? "Email copied" : "Copy email"}</span>
+              </button>
+              <a
+                href={profile.cv}
+                download={profile.cvFileName}
+                className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm text-muted-foreground transition-colors hover:border-primary/50 hover:text-primary"
+              >
+                <Download size={15} /> Download CV
+              </a>
+              <span className="inline-flex items-center gap-1.5 text-sm text-muted-foreground">
+                <MapPin size={14} /> {profile.location}
+              </span>
             </div>
+          </Reveal>
 
-            {/* Form */}
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <Input name="name" placeholder="Your Name" required />
-              <Input name="email" type="email" placeholder="Your Email" required />
-              <Textarea name="message" placeholder="Your Message" rows={5} required />
-              <Button type="submit" className="w-full" size="lg">Send Message</Button>
+          <Reveal delay={0.1}>
+            <form onSubmit={handleSubmit} className="surface space-y-4 p-6 sm:p-7">
+              <div className="grid gap-4 sm:grid-cols-2">
+                <label className="block">
+                  <span className="mb-1.5 block text-xs font-medium text-muted-foreground">Name</span>
+                  <input name="name" required autoComplete="name" placeholder="Your name" className={inputCls} />
+                </label>
+                <label className="block">
+                  <span className="mb-1.5 block text-xs font-medium text-muted-foreground">Email</span>
+                  <input name="email" type="email" required autoComplete="email" placeholder="you@company.com" className={inputCls} />
+                </label>
+              </div>
+              <label className="block">
+                <span className="mb-1.5 block text-xs font-medium text-muted-foreground">Message</span>
+                <textarea name="message" required rows={5} placeholder="Tell me about the role or project…" className={`${inputCls} resize-y`} />
+              </label>
+              <button
+                type="submit"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5"
+              >
+                <Send size={16} /> Send message
+              </button>
+              <p className="text-center text-xs text-muted-foreground">Opens your email app with the message pre-filled.</p>
             </form>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

@@ -1,105 +1,68 @@
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import { cn } from "@/lib/utils";
-import { Award } from "lucide-react";
+import { Award, Calendar, GraduationCap, MapPin } from "lucide-react";
+import { certifications, education } from "@/data/portfolio";
+import { OrgLogo, Reveal, SectionHeading } from "./shared";
 
-const certifications = [
-  { name: "AWS Machine Learning Foundations", issuer: "Amazon Web Services", year: "2025" },
-  { name: "Oracle AI Foundations", issuer: "Oracle", year: "2025" },
-  { name: "Applications of Artificial Intelligence", issuer: "The British University in Egypt ", year: "2025" },
-  { name: "Python for Data Science, AI & Development", issuer: "IBM", year: "2025" },
+const EducationSection = () => (
+  <section id="education" className="section">
+    <div className="container-x">
+      <SectionHeading eyebrow="05 · Education" title="Education & certifications" />
 
-];
-
-const EducationSection = () => {
-  const { ref, isVisible } = useScrollAnimation();
-  const { ref: ref2, isVisible: isVisible2 } = useScrollAnimation();
-
-  return (
-    <section id="education" className="py-20">
-      <div className="container mx-auto px-6">
-
-        {/* Education */}
-        <div
-          ref={ref}
-          className={cn(
-            "transition-all duration-700 mb-16",
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          )}
-        >
-          <h2 className="text-3xl font-bold text-foreground text-center mb-2">
-            Education
-          </h2>
-          <div className="w-12 h-1 bg-primary rounded mx-auto mb-12" />
-
-          <div className="max-w-2xl mx-auto bg-card border border-border rounded-xl p-8 shadow-sm">
-            <div className="flex items-center gap-6">
-
-              {/* BIG University Image */}
-              <img
-                src="/Abdelrahman-balbaa-portfolio/alexu.png"
-                alt="Alexandria University"
-                className="w-28 h-28 rounded-2xl object-cover border border-border shadow-md"
-              />
-
-              {/* Text */}
-              <div>
-                <h3 className="text-2xl font-bold text-foreground">
-                  Alexandria University
-                </h3>
-                <p className="text-primary font-semibold text-lg">
-                  Faculty of Computer and Data Science — AI Department
-                </p>
-                <p className="text-sm text-muted-foreground mt-2">
-                  2024 – 2028 (Expected)
-                </p>
+      <div className="grid gap-6 lg:grid-cols-[1fr_1.35fr]">
+        {/* Degree */}
+        <Reveal className="surface relative overflow-hidden p-6 sm:p-8">
+          <div className="absolute -right-16 -top-16 h-48 w-48 rounded-full bg-primary/10 blur-3xl" aria-hidden="true" />
+          <div className="relative">
+            <div className="flex items-center gap-4">
+              <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-2xl border border-border bg-white p-1">
+                <img src={education.logo} alt="" loading="lazy" className="h-full w-full object-contain" />
               </div>
-
+              <div>
+                <p className="eyebrow mb-1 flex items-center gap-1.5">
+                  <GraduationCap size={14} /> {education.status}
+                </p>
+                <h3 className="text-xl font-semibold text-foreground">{education.school}</h3>
+              </div>
+            </div>
+            <p className="mt-6 font-medium text-foreground/90">{education.faculty}</p>
+            <p className="text-muted-foreground">{education.department}</p>
+            <div className="mt-6 flex flex-col gap-2 text-sm text-muted-foreground">
+              <span className="inline-flex items-center gap-2">
+                <Calendar size={14} /> {education.period}
+              </span>
+              <span className="inline-flex items-center gap-2">
+                <MapPin size={14} /> {education.location}
+              </span>
             </div>
           </div>
-        </div>
+        </Reveal>
 
         {/* Certifications */}
-        <div
-          ref={ref2}
-          className={cn(
-            "transition-all duration-700",
-            isVisible2 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          )}
-        >
-          <h2 className="text-3xl font-bold text-foreground text-center mb-2">
-            Certifications
-          </h2>
-          <div className="w-12 h-1 bg-primary rounded mx-auto mb-12" />
-
-          <div className="grid sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
+        <div>
+          <Reveal>
+            <h3 className="mb-4 flex items-center gap-2 font-semibold text-foreground">
+              <Award size={18} className="text-primary" /> Certifications
+            </h3>
+          </Reveal>
+          <ul className="grid gap-3 sm:grid-cols-2">
             {certifications.map((c, i) => (
-              <div
-                key={c.name}
-                className={cn(
-                  "bg-card border border-border rounded-xl p-5 transition-all duration-500 hover:scale-105 hover:shadow-md",
-                  isVisible2 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-                )}
-                style={{ transitionDelay: isVisible2 ? `${i * 100}ms` : "0ms" }}
-              >
-                <div className="flex items-start gap-3">
-                  <Award size={18} className="text-primary mt-0.5 flex-shrink-0" />
-                  <div>
-                    <h4 className="font-semibold text-foreground text-sm">
-                      {c.name}
-                    </h4>
-                    <p className="text-xs text-muted-foreground">
-                      {c.issuer} · {c.year}
+              <Reveal as="li" key={c.name} delay={0.04 * i}>
+                <div className="surface surface-hover flex h-full gap-3 p-4">
+                  <OrgLogo name={c.issuer} src={c.logo} className="h-10 w-10" />
+                  <div className="min-w-0">
+                    <h4 className="text-sm font-semibold leading-snug text-foreground">{c.name}</h4>
+                    <p className="mt-1 text-xs text-muted-foreground">{c.issuer}</p>
+                    <p className="mt-2 font-mono text-[11px] text-primary/90">
+                      {c.date} · {c.detail}
                     </p>
                   </div>
                 </div>
-              </div>
+              </Reveal>
             ))}
-          </div>
-
+          </ul>
         </div>
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 export default EducationSection;

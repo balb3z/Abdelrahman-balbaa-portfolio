@@ -1,128 +1,89 @@
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { Briefcase, Calendar, MapPin } from "lucide-react";
+import { experiences, type Experience } from "@/data/portfolio";
 import { cn } from "@/lib/utils";
+import { Chip, OrgLogo, Reveal, SectionHeading } from "./shared";
 
-const experiences = [
-{
-    role: "Technical Instructor (DECI Program)",
-    company: "eYouth",
-    period: "2026 – Present",
-    logo: "/Abdelrahman-balbaa-portfolio/depi.png",
-    points: [
-      "Deliver hands-on sessions in Python programming and problem-solving as a Technical Instructor at DECI.",
-      "Design structured learning activities and assessments to strengthen students’ analytical and programming skills",
-    ],
-  },
-  
-  {
-    role: "Data Science Trainee",
-    company: "Digital Egypt Pioneers Initiative (DEPI)",
-    period: "2026 – Present",
-    logo: "/Abdelrahman-balbaa-portfolio/depi.png",
-    points: [
-      "Enrolled in an intensive data science program covering ML, deep learning, and big data.",
-      "Working on real-world projects with industry mentors.",
-      "Leading a team of peers on collaborative data science tasks.",
-    ],
-  },
-  {
-    role: "Summer Intern",
-    company: "WE Telecom",
-    period: "Summer 2025",
-    logo: "/Abdelrahman-balbaa-portfolio/we.png",
-    points: [
-      "Gained hands-on experience in data analysis and telecom operations.",
-      "Worked with network performance data to identify optimization opportunities.",
-      "Collaborated with cross-functional teams on technical projects.",
-    ],
-  },
-  {
-    role: "Summer Intern",
-    company: "Commercial International Bank (CIB)",
-    period: "Summer 2025",
-    logo: "/Abdelrahman-balbaa-portfolio/cib.png",
-    points: [
-      "Explored banking operations and financial data processes.",
-      "Assisted in data entry, analysis, and reporting tasks.",
-      "Developed understanding of financial technology systems.",
-    ],
-  },
-];
-
-const ExperienceSection = () => {
-  return (
-    <section id="experience" className="py-20">
-      <div className="container mx-auto px-6">
-        <h2 className="text-3xl font-bold text-foreground text-center mb-2">
-          Experience
-        </h2>
-        <div className="w-12 h-1 bg-primary rounded mx-auto mb-12" />
-
-        <div className="max-w-3xl mx-auto relative">
-          {/* Timeline line */}
-          <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-border -translate-x-1/2" />
-
-          {experiences.map((exp, i) => (
-            <TimelineItem key={i} exp={exp} index={i} />
-          ))}
+export const ExperienceCard = ({ exp }: { exp: Experience }) => (
+  <article className="surface surface-hover p-5 sm:p-7">
+    <header className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+      <div className="flex gap-4">
+        <OrgLogo name={exp.company} src={exp.logo} />
+        <div>
+          <h3 className="text-lg font-semibold leading-snug text-foreground">{exp.role}</h3>
+          <p className="text-sm font-medium text-primary">{exp.company}</p>
         </div>
       </div>
-    </section>
-  );
-};
-
-const TimelineItem = ({ exp, index }: { exp: typeof experiences[0]; index: number }) => {
-  const { ref, isVisible } = useScrollAnimation(0.2);
-  const isLeft = index % 2 === 0;
-
-  return (
-    <div
-      ref={ref}
-      className={cn(
-        "relative flex mb-12 transition-all duration-700",
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
-        "md:flex-row flex-col pl-12 md:pl-0"
-      )}
-    >
-      {/* Dot */}
-      <div className="absolute left-6 md:left-1/2 w-3 h-3 bg-primary rounded-full -translate-x-1/2 mt-2 z-10" />
-
-      {/* Card */}
-      <div className={cn("md:w-1/2", isLeft ? "md:pr-12 md:text-right" : "md:pl-12 md:ml-auto")}>
-        <div className="bg-card border border-border rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
-
-          {/* Header row */}
-          <div className="flex items-center gap-3 mb-2 justify-start md:justify-inherit">
-
-            {/* Company Logo */}
-            <img
-              src={exp.logo}
-              alt={exp.company}
-              className="w-8 h-8 rounded-md object-contain border border-border bg-white p-1"
-            />
-
-            <span className="text-sm text-muted-foreground">
-              {exp.period}
+      <div className="flex flex-wrap gap-x-4 gap-y-1.5 text-xs text-muted-foreground sm:flex-col sm:items-end sm:text-right">
+        <span className="inline-flex items-center gap-1.5">
+          <Calendar size={13} />
+          {exp.period}
+          {exp.current && (
+            <span className="ml-1 rounded-full bg-highlight/15 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-highlight">
+              Current
             </span>
-          </div>
-
-          <h3 className="text-lg font-bold text-foreground">
-            {exp.role}
-          </h3>
-
-          <p className="text-primary font-medium text-sm mb-3">
-            {exp.company}
-          </p>
-
-          <ul className={cn("space-y-1 text-sm text-muted-foreground", isLeft ? "md:text-right" : "")}>
-            {exp.points.map((p, j) => (
-              <li key={j}>• {p}</li>
-            ))}
-          </ul>
-
-        </div>
+          )}
+        </span>
+        <span className="inline-flex items-center gap-1.5">
+          <MapPin size={13} /> {exp.location}
+        </span>
+        {exp.type && (
+          <span className="inline-flex items-center gap-1.5">
+            <Briefcase size={13} /> {exp.type}
+          </span>
+        )}
       </div>
+    </header>
+
+    <p className="mt-5 text-sm text-foreground/85">{exp.summary}</p>
+    <ul className="mt-3 space-y-2">
+      {exp.points.map((p) => (
+        <li key={p} className="flex gap-3 text-sm leading-relaxed text-muted-foreground">
+          <span className="mt-2 h-1 w-1 flex-shrink-0 rounded-full bg-primary" aria-hidden="true" />
+          {p}
+        </li>
+      ))}
+    </ul>
+    <div className="mt-5 flex flex-wrap gap-1.5">
+      {exp.skills.map((s) => (
+        <Chip key={s}>{s}</Chip>
+      ))}
     </div>
-  );
-};
+  </article>
+);
+
+const ExperienceSection = () => (
+  <section id="experience" className="section">
+    <div className="container-x">
+      <SectionHeading
+        eyebrow="03 · Experience"
+        title="Where I've worked"
+        description="Internships and roles across infrastructure, telecom, banking, and education."
+      />
+
+      <ol className="relative space-y-6 sm:pl-10">
+        <span
+          className="absolute bottom-4 left-[11px] top-4 hidden w-px bg-gradient-to-b from-primary/60 via-border to-transparent sm:block"
+          aria-hidden="true"
+        />
+        {experiences.map((exp, i) => (
+          <li key={`${exp.company}-${exp.role}`} className="relative">
+          <Reveal delay={0.05 * i}>
+            <span
+              className={cn(
+                "absolute -left-10 top-8 hidden h-[23px] w-[23px] items-center justify-center rounded-full border bg-background sm:flex",
+                exp.current ? "border-highlight/60" : "border-primary/50",
+              )}
+              aria-hidden="true"
+            >
+              <span className={cn("h-2 w-2 rounded-full", exp.current ? "bg-highlight" : "bg-primary")} />
+            </span>
+            <ExperienceCard exp={exp} />
+          </Reveal>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+);
 
 export default ExperienceSection;

@@ -1,73 +1,60 @@
-# Welcome to your Lovable project
+# Abdelrahman Balbaa — Portfolio
 
-## Project info
+Personal portfolio built with Vite, React, TypeScript, Tailwind CSS and Framer Motion.
+Live at **https://balb3z.github.io/Abdelrahman-balbaa-portfolio/**.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+## Run locally
 
-## How can I edit this code?
-
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```bash
+npm install
+npm run dev        # http://localhost:8080/Abdelrahman-balbaa-portfolio/
+npm run build      # production build in dist/
 ```
 
-**Edit a file directly in GitHub**
+Pushing to `main` builds and deploys to GitHub Pages via `.github/workflows/deploy.yml`.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Editing content
 
-**Use GitHub Codespaces**
+All content lives in **`src/data/portfolio.ts`**. Sections render from it, so you don't touch components to update text.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+| What | Where in `portfolio.ts` |
+| --- | --- |
+| Name, bio, contact, social links | `profile` |
+| Skills | `skillGroups` |
+| Work experience | `experiences` |
+| Projects | `projects` |
+| Education / certifications / leadership | `education`, `certifications`, `activities` |
 
-## What technologies are used for this project?
+### Add a project
 
-This project is built with:
+Append an object to `projects`:
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+```ts
+{
+  slug: "my-project",              // unique; also used for ?project=my-project share links
+  title: "My Project",
+  year: "2026",
+  category: "Machine Learning",
+  summary: "One-line card description.",
+  description: "Longer paragraph shown in the details modal.",
+  features: ["Key feature 1", "Key feature 2"],
+  tech: ["Python", "PyTorch"],
+  images: [asset("projects/my-project-1.webp"), asset("projects/my-project-2.webp")],
+  github: "https://github.com/balb3z/my-project",   // optional
+  demo: "https://my-project.vercel.app",           // optional
+  featured: true,                                  // big card in "Selected work"; otherwise listed under "More on GitHub"
+  accent: 200,                                     // hue for the placeholder cover (0–360)
+}
+```
 
-## How can I deploy this project?
+### Add or replace project screenshots
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+1. Drop images in `public/projects/` (WebP or PNG, ~1280px wide, 16:10 works best).
+2. Reference them in the project's `images` array with `asset("projects/<file>")`.
+3. The first image is the card thumbnail; all images appear in the modal gallery.
 
-## Can I connect a custom domain to my Lovable project?
+Projects with an empty `images` array show a generated placeholder cover.
 
-Yes, you can!
+### Update the CV
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Replace `public/cv.pdf` with the new file (keep the name).
