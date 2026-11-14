@@ -39,7 +39,7 @@ const ProjectsSection = () => {
   }, []);
 
   return (
-    <section id="projects" className="section border-y border-border/60 bg-card/30">
+    <section id="projects" className="section border-y border-border/60 bg-accent/30">
       <div className="container-x">
         <SectionHeading
           eyebrow="04 · Projects"

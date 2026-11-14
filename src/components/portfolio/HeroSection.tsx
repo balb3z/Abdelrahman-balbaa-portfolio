@@ -19,7 +19,7 @@ const HeroSection = () => {
       {/* backdrop */}
       <div className="bg-grid pointer-events-none absolute inset-0" aria-hidden="true" />
       <div
-        className="pointer-events-none absolute -top-40 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-primary/10 blur-[120px]"
+        className="pointer-events-none absolute -top-40 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-[hsl(241_60%_70%/0.12)] blur-[120px]"
         aria-hidden="true"
       />
 
@@ -107,7 +107,7 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] as const }}
           className="relative mx-auto w-full max-w-[340px] sm:max-w-[380px] lg:max-w-none"
         >
-          <div className="absolute -inset-4 rounded-[2.25rem] bg-gradient-to-br from-primary/25 via-transparent to-highlight/10 blur-2xl" aria-hidden="true" />
+          <div className="absolute -inset-4 rounded-[2.25rem] bg-gradient-to-br from-primary/15 via-transparent to-[hsl(241_60%_70%/0.15)] blur-2xl" aria-hidden="true" />
           <div className="relative overflow-hidden rounded-[2rem] border border-border bg-white">
             <img
               src={profilePhoto}
@@ -117,8 +117,8 @@ const HeroSection = () => {
               className="aspect-[4/5] w-full object-cover object-top"
               fetchPriority="high"
             />
-            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-background/90 to-transparent" />
-            <div className="absolute inset-x-4 bottom-4 flex items-center justify-between rounded-2xl border border-white/10 bg-background/70 px-4 py-3 backdrop-blur-md">
+            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-background/60 to-transparent" />
+            <div className="absolute inset-x-4 bottom-4 flex items-center justify-between rounded-2xl border border-border bg-background/85 px-4 py-3 shadow-sm backdrop-blur-md">
               <div>
                 <p className="text-sm font-semibold text-foreground">Alexandria University</p>
                 <p className="text-xs text-muted-foreground">Faculty of Computer & Data Science · AI</p>

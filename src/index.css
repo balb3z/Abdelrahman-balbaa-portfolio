@@ -5,39 +5,39 @@
 /* Design tokens — all colors are HSL triplets consumed by tailwind.config.ts */
 @layer base {
   :root {
-    --background: 228 24% 5%;
-    --foreground: 220 20% 94%;
+    /* original portfolio palette (light, deep indigo primary) */
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
 
-    --card: 228 20% 8%;
-    --card-foreground: 220 20% 94%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
 
-    --popover: 228 22% 8%;
-    --popover-foreground: 220 20% 94%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
 
-    /* signal mint — the single brand accent */
-    --primary: 160 72% 52%;
-    --primary-foreground: 228 30% 6%;
+    --primary: 241 30% 22%;
+    --primary-foreground: 210 40% 98%;
 
-    --secondary: 228 16% 13%;
-    --secondary-foreground: 220 20% 90%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
 
-    --muted: 228 16% 12%;
-    --muted-foreground: 222 12% 64%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 228 16% 12%;
-    --accent-foreground: 220 20% 94%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
 
     /* warm highlight for "current" states */
-    --highlight: 38 95% 62%;
+    --highlight: 32 90% 42%;
 
-    --destructive: 0 72% 55%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 228 14% 15%;
-    --input: 228 14% 17%;
-    --ring: 160 72% 52%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 241 30% 22%;
 
-    --radius: 0.875rem;
+    --radius: 0.75rem;
   }
 }
 
@@ -93,11 +93,11 @@
   }
 
   .surface {
-    @apply rounded-2xl border border-border bg-card/70 backdrop-blur-sm;
+    @apply rounded-2xl border border-border bg-card shadow-sm;
   }
 
   .surface-hover {
-    @apply transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:bg-card hover:shadow-[0_20px_50px_-20px_hsl(var(--primary)/0.25)];
+    @apply transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:bg-card hover:shadow-[0_20px_40px_-20px_hsl(var(--primary)/0.3)];
   }
 
   .chip {
@@ -109,7 +109,7 @@
   }
 
   .text-gradient {
-    @apply bg-gradient-to-r from-foreground via-foreground to-primary bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-foreground via-foreground to-[hsl(241_45%_45%)] bg-clip-text text-transparent;
   }
 
   .bg-grid {

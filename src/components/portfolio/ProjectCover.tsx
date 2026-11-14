@@ -49,32 +49,32 @@ const ProjectCover = ({
       aria-label={`${project.title} — placeholder cover`}
       className={cn("relative flex h-full w-full items-center justify-center overflow-hidden", className)}
       style={{
-        background: `radial-gradient(120% 90% at 0% 0%, hsl(${hue} 70% 45% / 0.45), transparent 55%),
-                     radial-gradient(90% 80% at 100% 100%, hsl(${(hue + 50) % 360} 70% 50% / 0.25), transparent 60%),
-                     hsl(228 20% 9%)`,
+        background: `radial-gradient(120% 90% at 0% 0%, hsl(${hue} 70% 60% / 0.35), transparent 55%),
+                     radial-gradient(90% 80% at 100% 100%, hsl(${(hue + 50) % 360} 70% 60% / 0.25), transparent 60%),
+                     hsl(220 35% 97%)`,
       }}
     >
       <div className="bg-grid absolute inset-0 opacity-70" aria-hidden="true" />
       <svg className="absolute inset-x-0 bottom-0 h-1/2 w-full opacity-40" viewBox="0 0 400 100" preserveAspectRatio="none" aria-hidden="true">
         <path
           d="M0 80 C 60 60, 90 90, 140 55 S 230 20, 280 45 S 360 30, 400 10 L400 100 L0 100 Z"
-          fill={`hsl(${hue} 70% 55% / 0.25)`}
+          fill={`hsl(${hue} 60% 55% / 0.18)`}
         />
         <path
           d="M0 80 C 60 60, 90 90, 140 55 S 230 20, 280 45 S 360 30, 400 10"
           fill="none"
-          stroke={`hsl(${hue} 80% 65%)`}
+          stroke={`hsl(${hue} 55% 45%)`}
           strokeWidth="1.5"
         />
       </svg>
       <span
         className={cn("relative font-mono font-semibold tracking-tight", compact ? "text-base" : "text-4xl")}
-        style={{ color: `hsl(${hue} 80% 75%)` }}
+        style={{ color: `hsl(${hue} 50% 32%)` }}
       >
         {initials}
       </span>
       {!compact && (
-      <span className="absolute bottom-3 right-3 rounded-full border border-white/10 bg-black/30 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-white/60">
+      <span className="absolute bottom-3 right-3 rounded-full border border-border bg-white/80 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
         Screenshot coming soon
       </span>
       )}
